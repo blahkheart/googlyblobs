@@ -33,9 +33,11 @@
         <line xmlns="http://www.w3.org/2000/svg" x1="190.5" y1="220" x2="205.5" y2="225" stroke="#000" stroke-width="1" transform="rotate(10, 220, 310)"/>
         <line xmlns="http://www.w3.org/2000/svg" x1="195" y1="234" x2="207.5" y2="225" stroke="#000" stroke-width="1" transform="rotate(5, 300, 50)"/>
     </g> -->
+  
     <g id="mouth">
-        <!-- <ellipse fill="#000" stroke-width="1" cx="200" cy="240" id="svg_mouth" rx="11.5" ry="7.875" stroke="#000"/>
-        <ellipse fill="#FFC0CB" cx="200" cy="245" rx="8.75" id="svg_tongue" ry="2.9375" /> -->
+
+        <ellipse fill="#000" stroke-width="1" cx="200" cy="240" id="svg_mouth" rx="11.5" ry="7.875" stroke="#000"/>
+        <ellipse fill="#FFC0CB" cx="200" cy="245" rx="8.75" id="svg_tongue" ry="2.9375" />
 
         <!-- mouth 2 -->
         <!-- <ellipse fill="#000" stroke-width="1" cx="200" cy="240" id="svg_mouth" rx="11.5" ry="7.875" stroke="#000"/>
@@ -46,7 +48,7 @@
         <!-- <ellipse xmlns="http://www.w3.org/2000/svg" fill="#000" stroke-width="1" cx="200" cy="240" id="svg_mouth" rx="11.5" ry="2" stroke="#000"/> -->
 
         <!-- mouth 4  -->
-        <ellipse xmlns="http://www.w3.org/2000/svg" fill="#000" stroke-width="1" cx="200" cy="251" id="svg_mouth" rx="11.5" ry="7.875" stroke="#000"/>
-        <ellipse xmlns="http://www.w3.org/2000/svg" fill="#FFC0CB" cx="200" cy="256" rx="8.75" id="svg_tongue" ry="2.9375"/>
+        <!-- <ellipse xmlns="http://www.w3.org/2000/svg" fill="#000" stroke-width="1" cx="200" cy="251" id="svg_mouth" rx="11.5" ry="7.875" stroke="#000"/>
+        <ellipse xmlns="http://www.w3.org/2000/svg" fill="#FFC0CB" cx="200" cy="256" rx="8.75" id="svg_tongue" ry="2.9375"/> -->
     </g>
 </svg>
