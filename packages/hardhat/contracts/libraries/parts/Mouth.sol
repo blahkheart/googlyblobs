@@ -4,7 +4,7 @@ pragma solidity ^0.8.0;
 pragma abicoder v2;
 
 /// @title Mouth SVG generator
-library Mouth {
+library MouthDetail {
     uint8 constant public mouthTypeCount = 4;
 
     function buildMouth(uint8 _id)pure public returns(string memory){

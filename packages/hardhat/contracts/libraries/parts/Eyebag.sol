@@ -4,7 +4,7 @@ pragma solidity ^0.8.0;
 pragma abicoder v2;
 
 /// @title Eyebag SVG generator
-library Eyebag {
+library EyebagDetail {
 
     function buildEyebag(bool _hasEyebag)pure public returns(string memory){
         string memory _eyebag_ = _getEyebagSVG();

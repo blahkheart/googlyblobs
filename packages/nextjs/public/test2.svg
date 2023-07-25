@@ -51,4 +51,10 @@
         <!-- <ellipse xmlns="http://www.w3.org/2000/svg" fill="#000" stroke-width="1" cx="200" cy="251" id="svg_mouth" rx="11.5" ry="7.875" stroke="#000"/>
         <ellipse xmlns="http://www.w3.org/2000/svg" fill="#FFC0CB" cx="200" cy="256" rx="8.75" id="svg_tongue" ry="2.9375"/> -->
     </g>
+    <g id="level" transform="translate(204.5, 355)">
+        <text x="0" y="0" text-anchor="middle" font-family="serif" font-size="22px" fill="#000">LEVEL</text>
+        <text x="0" y="30" text-anchor="middle" font-weight="bold" font-family="serif" font-size="22px" fill="#000">
+            1<!-- <tspan dx="0" dy="0" font-weight="bold">1</tspan> -->
+        </text>
+    </g>
 </svg>
