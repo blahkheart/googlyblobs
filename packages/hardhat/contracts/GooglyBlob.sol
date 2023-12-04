@@ -19,11 +19,11 @@ import "@openzeppelin/contracts/utils/Strings.sol";
 import "base64-sol/base64.sol";
 import "./interfaces/IPublicLockV13.sol";
 import "./interfaces/ILevels.sol";
-import "./interfaces/IGooglyBlobs.sol";
+// import "./interfaces/IGooglyBlobs.sol";
 // import "./libraries//ToColor.sol";
 import "./libraries/NFTDescriptor.sol";
 import "@chainlink/contracts/src/v0.8/interfaces/VRFCoordinatorV2Interface.sol";
-import "@chainlink/contracts/src/v0.8/VRFConsumerBaseV2.sol";
+import "@chainlink/contracts/src/v0.8/vrf/VRFConsumerBaseV2.sol";
 import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 
 /**
@@ -34,7 +34,7 @@ import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 */
 
 // contract GooglyBlobs is ERC721Enumerable,IGooglyBlob, IERC721Receiver, Ownable {
-contract GooglyBlobs is ERC721Enumerable, IGooglyBlobs, Ownable, ReentrancyGuard, VRFConsumerBaseV2 {
+contract GooglyBlobs is ERC721Enumerable, Ownable, ReentrancyGuard, VRFConsumerBaseV2 {
     using Address for address;
     using Strings for uint256;
     using Strings for uint160;
@@ -42,8 +42,8 @@ contract GooglyBlobs is ERC721Enumerable, IGooglyBlobs, Ownable, ReentrancyGuard
 
     ILevels public LevelsFactory;
     uint256 public maxSupply = 5000;
-    uint64 constant public MAX_OWNER_FREE_MINT = (maxSupply * 3) / 100; // Owner can mint 3% of totalSupply() for free
-    uint64 ownerFreeMintCount = 0;
+    uint256 immutable public MAX_OWNER_FREE_MINT = (maxSupply * 3) / 100; // Owner can mint 3% of totalSupply() for free
+    uint256 ownerFreeMintCount = 0;
 	uint256 public price = 0.02 ether;
     address constant dev = 0xCA7632327567796e51920F6b16373e92c7823854;
     Counters.Counter private _tokenIdCounter;
@@ -80,7 +80,7 @@ contract GooglyBlobs is ERC721Enumerable, IGooglyBlobs, Ownable, ReentrancyGuard
     constructor(
         uint64 _subscriptionId,
         bytes32 _keyHash,
-        VRFCoordinatorV2Interface _VRFCoordinator
+        address _VRFCoordinator
     ) 
         ERC721("GooglyBlobs", "BLOB") 
         VRFConsumerBaseV2(_VRFCoordinator)
@@ -168,7 +168,7 @@ contract GooglyBlobs is ERC721Enumerable, IGooglyBlobs, Ownable, ReentrancyGuard
         if(msg.sender == owner() && ownerFreeMintCount > MAX_OWNER_FREE_MINT){
             require(msg.value >= price, "FreeMint Over");
         }else if(msg.sender == owner()){
-            ownerFreeMintCount.increment();
+            ownerFreeMintCount++;
         } 
          requestId = COORDINATOR.requestRandomWords(
             keyHash,
@@ -197,7 +197,7 @@ contract GooglyBlobs is ERC721Enumerable, IGooglyBlobs, Ownable, ReentrancyGuard
         emit NftMinted(mintedTokenId, nftOwner);
     }
 
-    function _getRandomNumberWithinRange(uint256[] _randomWords, uint256 minValue, uint256 maxValue) internal view returns (uint256) {
+    function _getRandomNumberWithinRange(uint256[] calldata _randomWords, uint256 minValue, uint256 maxValue) internal view returns (uint256) {
         uint256 randomNumber = _randomWords[0];
         uint256 range = maxValue - minValue + 1;
         return (randomNumber % range) + minValue;
@@ -212,7 +212,7 @@ contract GooglyBlobs is ERC721Enumerable, IGooglyBlobs, Ownable, ReentrancyGuard
         );
         NFTDescriptor.SVGParams memory _svgParams;
         _svgParams.color = color[id];
-        _svgParams.level = level[id];
+        _svgParams.level = tokenIdTolevel[id];
         _svgParams.chubbiness = chubbiness[id];
         _svgParams.mouth = mouthLength[id];
         _svgParams.owner = ownerOf(id);
