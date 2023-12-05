@@ -5,13 +5,13 @@ pragma abicoder v2;
 
 /// @title Mouth SVG generator
 library MouthDetail {
-    uint8 constant public mouthTypeCount = 4;
+    uint256 constant public mouthTypeCount = 4;
 
-    function buildMouth(uint8 _id)pure public returns(string memory){
+    function buildMouth(uint256 _id)pure public returns(string memory){
         return  _selectMouthById( _id);
     }
 
-    function getMouthTypeNameByIndex(uint8 _id)pure public returns(string memory){
+    function getMouthTypeNameByIndex(uint256 _id)pure public returns(string memory){
         string[] memory names = new string[](12);
         string memory _mouthTypeName;
         names[0] = "Goober Gasp";
@@ -28,7 +28,7 @@ library MouthDetail {
     }
 
     /// @dev Selects a mouth type based on number (_id) provided
-    function _selectMouthById(uint8 _id)
+    function _selectMouthById(uint256 _id)
         private
         pure
         returns (string memory)

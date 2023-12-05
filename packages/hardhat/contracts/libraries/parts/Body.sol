@@ -5,13 +5,13 @@ pragma abicoder v2;
 
 /// @title Body SVG generator
 library BodyDetail {
-    uint8 constant public bodyTypeCount = 12;
+    uint256 constant public bodyTypeCount = 12;
 
-    function buildBody(uint8 _id, string memory color)pure public returns(string memory){
+    function buildBody(uint256 _id, string memory color)pure public returns(string memory){
         return  _selectBodyById( _id, color);
     }
 
-    function getBodyTypeNameByIndex(uint8 _id)pure public returns(string memory){
+    function getBodyTypeNameByIndex(uint256 _id)pure public returns(string memory){
         string[] memory names = new string[](12);
         string memory _bodyTypeName;
         names[0] = "Peach Puff";
@@ -28,15 +28,14 @@ library BodyDetail {
         names[11] = "Goowey Blob";
         require(_id > 0 && _id <= names.length, "Invalid Id");
         for(uint i =0; i < names.length; i++){
-        // [i + 1] causes index to start from 1 and not 0
-            if(_id == (i+1)) 
-            _bodyTypeName = names[i];
+           // [i + 1] causes index to start from 1 and not 0
+           if(_id == (i+1)) _bodyTypeName = names[i];
         }
         return _bodyTypeName;
     }
 
     /// @dev Selects a body type based on _id provided
-    function _selectBodyById(uint8 _id, string memory color)
+    function _selectBodyById(uint256 _id, string memory color)
         private
         pure
         returns (string memory)
@@ -174,7 +173,7 @@ library BodyDetail {
             )
         );
     }
-    
+
      /// @dev The base SVG for the body
     function base(string memory children) private pure returns (string memory) {
         return string(

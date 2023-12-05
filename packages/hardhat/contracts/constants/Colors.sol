@@ -4,10 +4,10 @@ pragma solidity ^0.8.0;
 pragma abicoder v2;
 
 contract Colors {
-    mapping(uint8 => string) bodyColorIdToName;
-    mapping(uint8 => string) bodyColorIdToCode;
-    mapping(uint8 => string) eyeColorIdToName;
-    mapping(uint8 => string) eyeColorIdToCode;
+    mapping(uint256 => string) bodyColorIdToName;
+    mapping(uint256 => string) bodyColorIdToCode;
+    mapping(uint256 => string) eyeColorIdToName;
+    mapping(uint256 => string) eyeColorIdToCode;
 
     string[] eyeColorNames = [
         "White",		
@@ -107,23 +107,23 @@ contract Colors {
 
     function _initializeColors() private {
         // [i + 1] causes index to start from 1 and not 0
-        for (uint8 i = 0; i < bodyColorNames.length; i++) {
+        for (uint256 i = 0; i < bodyColorNames.length; i++) {
             bodyColorIdToName[i+1] = bodyColorNames[i];
             bodyColorIdToCode[i+1] = bodyColorCodes[i];
         }
-        for(uint8 i = 0; i < eyeColorNames.length; i++){
+        for(uint256 i = 0; i < eyeColorNames.length; i++){
             eyeColorIdToName[i+1] = eyeColorNames[i];
             eyeColorIdToCode[i+1] = eyeColorCodes[i];
         }
     }
 
-    function getEyeColor(uint8 _id)view external returns (string memory name, string memory color){
+    function getEyeColor(uint256 _id)view external returns (string memory name, string memory color){
         require(_id <= eyeColorsCount(), "Invalid Id");
         name = eyeColorIdToName[_id];
         color = eyeColorIdToCode[_id];
     }
 
-    function getBodyColor(uint8 _id)view external returns (string memory name, string memory color){
+    function getBodyColor(uint256 _id)view external returns (string memory name, string memory color){
         require(_id <= bodyColorsCount(), "Invalid Id");
         name = bodyColorIdToName[_id];
         color = bodyColorIdToCode[_id];

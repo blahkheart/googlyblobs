@@ -5,20 +5,20 @@ pragma abicoder v2;
 
 /// @title Eyes SVG generator
 library EyesDetail {
-    function buildLeftEye(string memory scleraColor, uint8 eyeSize, uint8 pupilSize) public pure returns (string memory){
+    function buildLeftEye(string memory scleraColor, uint256 eyeSize, uint256 pupilSize) public pure returns (string memory){
         return _leftEye(scleraColor, eyeSize, pupilSize);
     }
 
-    function buildRightEye(string memory scleraColor, uint8 eyeSize, uint8 pupilSize) public pure returns (string memory){
+    function buildRightEye(string memory scleraColor, uint256 eyeSize, uint256 pupilSize) public pure returns (string memory){
         return _rightEye(scleraColor, eyeSize, pupilSize);
     }
 
-    function buildCyclopseEye(string memory scleraColor, uint8 eyeSize, uint8 pupilSize) public pure returns(string memory){
+    function buildCyclopseEye(string memory scleraColor, uint256 eyeSize, uint256 pupilSize) public pure returns(string memory){
         return _cyclopseEye(scleraColor, eyeSize, pupilSize);
     }
 
     /// @dev Combines _eye component with the non-cyclopse base for the left eye
-    function _leftEye(string memory scleraColor, uint8 eyeSize, uint8 pupilSize)
+    function _leftEye(string memory scleraColor, uint256 eyeSize, uint256 pupilSize)
         private
         pure
         returns (string memory)
@@ -27,7 +27,7 @@ library EyesDetail {
     }
 
     /// @dev Combines _eye component with the non-cyclopse base for the right eye
-    function _rightEye(string memory scleraColor, uint8 eyeSize, uint8 pupilSize)
+    function _rightEye(string memory scleraColor, uint256 eyeSize, uint256 pupilSize)
         private
         pure
         returns (string memory)
@@ -36,7 +36,7 @@ library EyesDetail {
     }
 
     /// @dev Combines _eye component with the cyclopse base
-    function _cyclopseEye(string memory scleraColor, uint8 eyeSize, uint8 pupilSize)
+    function _cyclopseEye(string memory scleraColor, uint256 eyeSize, uint256 pupilSize)
         private
         pure
         returns (string memory)
@@ -45,7 +45,7 @@ library EyesDetail {
     }
 
     /// @dev The dynamic eye component for all eye types
-    function _eye(string memory scleraColor, uint8 eyeSize, uint8 pupilSize) private pure returns (string memory) {
+    function _eye(string memory scleraColor, uint256 eyeSize, uint256 pupilSize) private pure returns (string memory) {
         return string(
             abi.encodePacked(
                 '<circle r="',
