@@ -60,7 +60,7 @@ contract GooglyBlobs is
 	ILevels public LevelsFactory;
 	IColors Colors;
 	uint256 public maxSupply = 5000;
-	uint256 public immutable MAX_OWNER_FREE_MINT = (maxSupply * 3) / 100; // Owner can mint 3% of totalSupply() for free
+	uint256 public constant MAX_OWNER_FREE_MINT = 100; // Owner can mint 100 for free
 	uint256 ownerFreeMintCount = 0;
 	uint256 public price = 0.02 ether;
 	address constant dev = 0xCA7632327567796e51920F6b16373e92c7823854;
@@ -102,6 +102,7 @@ contract GooglyBlobs is
 	) ERC721("GooglyBlobs", "BLOB") VRFConsumerBaseV2(_VRFCoordinator) {
 		COORDINATOR = VRFCoordinatorV2Interface(_VRFCoordinator);
 		s_subscriptionId = _subscriptionId;
+        keyHash = _keyHash;
 		Colors = IColors(_colors);
 		_tokenIdCounter.increment();
 	}
@@ -229,30 +230,29 @@ contract GooglyBlobs is
 		// uint256 moddedRng = randomWords[0] % MAX_CHANCE_VALUE;
 		// Breed nftBreed = getBreedFromModdedRng(moddedRng);
 		_safeMint(nftOwner, mintedTokenId);
-		// _setTokenURI(mintedTokenId, s_nftTokenUris[uint256(nftBreed)]);
 		emit NftMinted(mintedTokenId, nftOwner);
 	}
 
-	function _isCyclops(uint256 _gene) private returns (bool) {
+	function _isCyclops(uint256 _gene) private pure returns (bool) {
 		return _gene >= CYCLOPS_THRESHOLD;
 	}
 
 	function _hasEyebag(
 		bool isCyclops,
 		uint256[] memory _randomWords
-	) internal view returns (bool) {
+	) internal pure returns (bool) {
 		uint256 gene = _getRandomNumberWithinRange(_randomWords, 1, 50);
 		return !isCyclops && gene >= EYEBAG_THRESHOLD;
 	}
 
-    function _calculateEyeSize(bool isCyclops, uint256[] memory randomWords) internal view returns(uint256) {
+    function _calculateEyeSize(bool isCyclops, uint256[] memory randomWords) internal pure returns(uint256) {
         if(isCyclops){
             return _getRandomNumberWithinRange(randomWords, 15, 22);
         }
         return _getRandomNumberWithinRange(randomWords, 14, 18);
     }
 
-      function _calculatePupilSize(bool isCyclops, uint256[] memory randomWords) internal view returns(uint256) {
+      function _calculatePupilSize(bool isCyclops, uint256[] memory randomWords) internal pure returns(uint256) {
         if(isCyclops){
             return _getRandomNumberWithinRange(randomWords, 7, 11);
         }
@@ -263,7 +263,7 @@ contract GooglyBlobs is
 		uint256[] memory _randomWords,
 		uint256 minValue,
 		uint256 maxValue
-	) internal view returns (uint256) {
+	) internal pure returns (uint256) {
 		uint256 range = maxValue - minValue + 1;
 		return (_randomWords[0] % range) + minValue;
 	}
@@ -313,7 +313,7 @@ contract GooglyBlobs is
 		public
 		view
 		onlyOwner
-		returns (uint64 minted)
+		returns (uint256 minted)
 	{
 		minted = ownerFreeMintCount;
 	}
