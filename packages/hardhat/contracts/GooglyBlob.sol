@@ -210,9 +210,15 @@ contract GooglyBlobs is
 		address nftOwner = s_requestIdToSender[requestId];
 		uint256 mintedTokenId = _tokenIdCounter.current();
 		_tokenIdCounter.increment();
+		// generate minted token traits
+        NFTDescriptor.SVGParams memory traits = _generateTrait(mintedTokenId, nftOwner, randomWords);
+        tokenIdToTraits[mintedTokenId] = traits;
+		_safeMint(nftOwner, mintedTokenId);
+		emit NftMinted(mintedTokenId, nftOwner);
+	}
 
-		// create minted token traits
-		uint256 bodyId = _getRandomNumberWithinRange(randomWords, 1, 12);
+    function _generateTrait(uint256 _tokenId, address owner, uint256[] memory randomWords)internal view returns (NFTDescriptor.SVGParams memory) {
+        uint256 bodyId = _getRandomNumberWithinRange(randomWords, 1, 12);
 		string memory bodyName = BodyDetail.getBodyTypeNameByIndex(bodyId);
 		(string memory bodyColorName, string memory bodyColor) = Colors
 			.getBodyColor(_getRandomNumberWithinRange(randomWords, 1, 36));
@@ -221,17 +227,30 @@ contract GooglyBlobs is
 		bool isCyclops = _isCyclops(
 			_getRandomNumberWithinRange(randomWords, 1, 100)
 		);
-		bool hasEyeBag = _hasEyebag(isCyclops, randomWords);
+		bool hasEyebag = _hasEyebag(isCyclops, randomWords);
         uint256 eyeSize = _calculateEyeSize(isCyclops, randomWords);
         uint256 pupilSize = _calculatePupilSize(isCyclops, randomWords);
 		uint256 mouthId = _getRandomNumberWithinRange(randomWords, 1, 4);
 		string memory mouthName = MouthDetail.getMouthTypeNameByIndex(mouthId);
-
-		// uint256 moddedRng = randomWords[0] % MAX_CHANCE_VALUE;
-		// Breed nftBreed = getBreedFromModdedRng(moddedRng);
-		_safeMint(nftOwner, mintedTokenId);
-		emit NftMinted(mintedTokenId, nftOwner);
-	}
+        uint256 level = tokenIdTolevel[_tokenId];
+        NFTDescriptor.SVGParams memory traits = NFTDescriptor.SVGParams({
+         bodyId: bodyId,
+		 bodyName:bodyName,
+		 bodyColor:bodyColor,
+		 bodyColorName:bodyColorName,
+		 isCyclops: isCyclops,
+		 eyeColor: eyeColor,
+		 eyeColorName: eyeColorName,
+		 eyeSize: eyeSize,
+		 pupilSize: pupilSize,
+		 hasEyebag: hasEyebag,
+		 mouthId: mouthId,
+		 mouthName:mouthName,
+		 level: level,
+		 owner: owner
+         });
+        return traits;
+    }
 
 	function _isCyclops(uint256 _gene) private pure returns (bool) {
 		return _gene >= CYCLOPS_THRESHOLD;
@@ -272,10 +291,8 @@ contract GooglyBlobs is
 		uint256 id
 	) public view override returns (string memory _tokenURI) {
 		require(_exists(id), "not exist");
-		string memory name = string(abi.encodePacked("Blob #", id.toString()));
-		NFTDescriptor.SVGParams memory _svgParams;
-
-		_svgParams.owner = ownerOf(id);
+		string memory name = string(abi.encodePacked("GooglyBlob #", id.toString()));
+		NFTDescriptor.SVGParams memory _svgParams = tokenIdToTraits[id];
 		string memory image = Base64.encode(
 			bytes(NFTDescriptor.generateSVGImage(_svgParams))
 		);
