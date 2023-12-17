@@ -271,7 +271,7 @@ contract GooglyBlobs is
         return _getRandomNumberWithinRange(randomWords, 14, 18);
     }
 
-      function _calculatePupilSize(bool isCyclops, uint256[] memory randomWords) internal pure returns(uint256) {
+    function _calculatePupilSize(bool isCyclops, uint256[] memory randomWords) internal pure returns(uint256) {
         if(isCyclops){
             return _getRandomNumberWithinRange(randomWords, 7, 11);
         }

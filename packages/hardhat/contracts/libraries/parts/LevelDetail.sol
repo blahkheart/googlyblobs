@@ -22,8 +22,10 @@ library LevelDetail {
     function _level(uint256 _tokenLevel) private pure returns (string memory) {
         return string(
             abi.encodePacked(
-               '<text x="0" y="0" text-anchor="middle" font-family="serif" font-size="22px" fill="#000">LEVEL</text>',
-               '<text x="0" y="30" text-anchor="middle" font-weight="bold" font-family="serif" font-size="22px" fill="#000">',_tokenLevel,"</text>"
+               '<text x="12px" y="20px" font-weight="700" font-family="Verdana, monospace" font-size="20px" fill="rgba(255,255,255,1)">',
+               '<tspan>Level: </tspan>',
+               _tokenLevel,
+               "</text>"
             )
         );
     }
@@ -32,7 +34,8 @@ library LevelDetail {
     function base(string memory children) private pure returns (string memory) {
         return string(
             abi.encodePacked(
-                '<g id="level" transform="translate(204.5, 355)">', children, "</g>"
+                // '<g id="level" transform="translate(204.5, 355)">', children, "</g>"
+                '<g id="level" transform="translate(134, 341)">', children, "</g>"
             )
         );
     }
