@@ -22,7 +22,7 @@ import "./interfaces/ILevels.sol";
 // import "./libraries//ToColor.sol";
 import "./libraries/parts/Body.sol";
 import "./libraries/parts/Mouth.sol";
-import "./constants/Colors.sol";
+// import "./constants/Colors.sol";
 import "./libraries/NFTDescriptor.sol";
 import "@chainlink/contracts/src/v0.8/interfaces/VRFCoordinatorV2Interface.sol";
 import "@chainlink/contracts/src/v0.8/vrf/VRFConsumerBaseV2.sol";
